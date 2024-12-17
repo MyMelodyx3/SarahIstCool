@@ -4,31 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Willkommen!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             background: linear-gradient(135deg, #ffe4f3, #f8d8ff);
-            color: #ff66b2;
             text-align: center;
-            padding: 1;
-            margin: 1;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
         }
 
         h1 {
-            font-size: 2.8em;
-            color: #ff3399;
-            text-shadow: 3px 3px #ff99cc;
             margin-top: 20px;
+            font-size: 2.5em;
+            color: #ff3399;
         }
 
         .question {
-            font-size: 1.8em;
-            margin: 20px 0;
+            font-size: 1.5em;
             color: #ff66b2;
-            text-shadow: 1px 1px #ff99cc;
+            margin: 20px 0;
+        }
+
+        .answers {
+            margin-top: 30px;
         }
 
         .answers button {
@@ -37,114 +36,63 @@
             border-radius: 12px;
             color: white;
             font-size: 1.3em;
-            margin: 10px;
             padding: 15px 30px;
             cursor: pointer;
             box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .answers button:hover {
             background: #ff66b2;
-            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
-            transform: scale(1.05);
         }
 
-        .answers button:nth-child(2) {
-            font-size: 0.65em;
-            padding: 7.5px 15px;
+        #noButton {
+            background: #ff6666;
+            padding: 10px 20px;
+            font-size: 1em;
+            transition: none; 
         }
 
         .result {
             margin-top: 20px;
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #ff66b2;
-            animation: fadeIn 1s ease;
-        }
-
-        .heart {
-            font-size: 1.5em;
-            animation: floatHeart 3s infinite ease-in-out;
-            position: absolute;
-            opacity: 0.8;
-            user-select: none;
-            font-family: Arial, sans-serif;
-        }
-
-        @keyframes floatHeart {
-            0% {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(-200px) scale(1.2);
-                opacity: 0;
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        footer {
-            margin-top: 30px;
-            font-size: 1.2em;
-            color: #cc66ff;
+            font-size: 1.3em;
+            color: #ff3399;
         }
     </style>
 </head>
 <body>
-    <h1>Hi <3! <span class="heart">❤</span></h1>
-    <div class="question">Ist Sarah die coolste? <span class="heart">❤</span></div>
+    <h1>Hi <3!</h1>
+    <div class="question">Ist Sarah die coolste?</div>
     <div class="answers">
         <button onclick="checkAnswer(true)">Ja</button>
-        <button id="noButton" onmouseover="moveButton()">Nein</button>
+        <button id="noButton" onmouseover="moveNoButton()">Nein</button>
     </div>
-    <div class="result" id="result"></div>
+    <div id="result" class="result"></div>
 
     <script>
         function checkAnswer(isYes) {
             const resultDiv = document.getElementById("result");
             if (isYes) {
                 resultDiv.textContent = "Richtig! Sarah ist die coolste! ❤";
-                resultDiv.style.color = "#ff66b2";
-                createFloatingHeart();
             } else {
-                resultDiv.textContent = "Falsche Antwort, versuch's nochmal! ❤";
-                resultDiv.style.color = "#ff66b2";
+                resultDiv.textContent = "Falsche Antwort, versuch's nochmal!";
             }
         }
 
-        function createFloatingHeart() {
-            const heart = document.createElement("div");
-            heart.className = "heart";
-            heart.textContent = "❤";
+        function moveNoButton() {
+            const noButton = document.getElementById("noButton");
 
-            const randomX = Math.random() * window.innerWidth;
-            heart.style.left = `${randomX}px`;
+            const maxX = window.innerWidth - noButton.offsetWidth;
+            const maxY = window.innerHeight - noButton.offsetHeight;
 
-            document.body.appendChild(heart);
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
 
-            setTimeout(() => heart.remove(), 3000);
-        }
 
-        function moveButton() {
-            const button = document.getElementById("noButton");
-            const randomX = Math.random() * (window.innerWidth - button.offsetWidth);
-            const randomY = Math.random() * (window.innerHeight - button.offsetHeight);
-
-            button.style.position = "absolute";
-            button.style.left = `${randomX}px`;
-            button.style.top = `${randomY}px`;
+            noButton.style.position = "absolute";
+            noButton.style.left = `${randomX}px`;
+            noButton.style.top = `${randomY}px`;
         }
     </script>
 </body>
