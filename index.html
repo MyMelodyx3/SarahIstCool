@@ -72,14 +72,6 @@
             font-family: Arial, sans-serif;
         }
 
-        .heart.pink {
-            color: #ff3399;
-        }
-
-        .heart.purple {
-            color: #cc66ff;
-        }
-
         @keyframes floatHeart {
             0% {
                 transform: translateY(0) scale(1);
@@ -115,7 +107,7 @@
     <div class="question">Ist Sarah die coolste? <span class="heart">❤</span></div>
     <div class="answers">
         <button onclick="checkAnswer(true)">Ja</button>
-        <button onclick="checkAnswer(false)">Nein</button>
+        <button id="noButton" onmouseover="moveButton()">Nein</button>
     </div>
     <div class="result" id="result"></div>
 
@@ -144,6 +136,17 @@
 
             setTimeout(() => heart.remove(), 3000);
         }
+
+        function moveButton() {
+            const button = document.getElementById("noButton");
+            const randomX = Math.random() * (window.innerWidth - button.offsetWidth);
+            const randomY = Math.random() * (window.innerHeight - button.offsetHeight);
+
+            button.style.position = "absolute";
+            button.style.left = `${randomX}px`;
+            button.style.top = `${randomY}px`;
+        }
     </script>
 </body>
 </html>
+
