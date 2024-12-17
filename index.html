@@ -37,11 +37,11 @@
             border-radius: 12px;
             color: white;
             font-size: 1.3em;
+            margin: 10px;
             padding: 15px 30px;
             cursor: pointer;
             box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            position: relative;
         }
 
         .answers button:hover {
@@ -51,9 +51,9 @@
         }
 
         #noButton {
-            font-size: 0.8em;
+            font-size: 0.9em;
             padding: 10px 20px;
-            background: #ff6666;
+            position: absolute;
         }
 
         .result {
@@ -62,6 +62,22 @@
             font-weight: bold;
             color: #ff66b2;
             animation: fadeIn 1s ease;
+        }
+        .heart {
+            font-size: 1.5em;
+            animation: floatHeart 3s infinite ease-in-out;
+            position: absolute;
+            opacity: 0.8;
+            user-select: none;
+            font-family: Arial, sans-serif;
+        }
+
+        .heart.pink {
+            color: #ff3399;
+        }
+
+        .heart.purple {
+            color: #cc66ff;
         }
 
         @keyframes fadeIn {
@@ -73,28 +89,6 @@
             }
         }
 
-        .heart {
-            font-size: 1.5em;
-            animation: floatHeart 3s infinite ease-in-out;
-            position: absolute;
-            opacity: 0.8;
-            user-select: none;
-        }
-
-        @keyframes floatHeart {
-            0% {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(-200px) scale(1.2);
-                opacity: 0;
-            }
-        }
-
         footer {
             margin-top: 30px;
             font-size: 1.2em;
@@ -103,11 +97,11 @@
     </style>
 </head>
 <body>
-    <h1>Willkommen! <span class="heart">❤</span></h1>
-    <div class="question">Ist Sarah die coolste? <span class="heart">❤</span></div>
+    <h1>HI! ❤</h1>
+    <div class="question">Ist Sarah die coolste?</div>
     <div class="answers">
         <button onclick="checkAnswer(true)">Ja</button>
-        <button id="noButton" onmouseover="moveNoButton()" ontouchstart="moveNoButton()">Nein</button>
+        <button id="noButton" onclick="moveNoButton()">Nein</button>
     </div>
     <div class="result" id="result"></div>
 
@@ -123,41 +117,28 @@
                 resultDiv.style.color = "#ff66b2";
                 createFloatingHeart();
             } else {
-                resultDiv.textContent = "Falsche Antwort, versuch's nochmal! ❤";
+                resultDiv.textContent = "Du Loser";
                 resultDiv.style.color = "#ff66b2";
             }
-        }
-
-        function createFloatingHeart() {
-            const heart = document.createElement("div");
-            heart.className = "heart";
-            heart.textContent = "❤";
-
-            const randomX = Math.random() * window.innerWidth;
-            const randomY = Math.random() * window.innerHeight;
-
-            heart.style.left = `${randomX}px`;
-            heart.style.top = `${randomY}px`;
-            document.body.appendChild(heart);
-
-            setTimeout(() => heart.remove(), 3000);
         }
 
         function moveNoButton() {
             const noButton = document.getElementById("noButton");
 
-            // Berechne neue zufällige Position
+            // Berechne zufällige neue Position
             const maxX = window.innerWidth - noButton.offsetWidth;
             const maxY = window.innerHeight - noButton.offsetHeight;
 
             const randomX = Math.random() * maxX;
             const randomY = Math.random() * maxY;
 
-            // Setze die neue Position
-            noButton.style.position = "absolute";
             noButton.style.left = `${randomX}px`;
             noButton.style.top = `${randomY}px`;
         }
+
+
+        document.getElementById("noButton").addEventListener("mouseover", moveNoButton);
+        document.getElementById("noButton").addEventListener("ontouchstart", moveNoButton);
     </script>
 </body>
 </html>
