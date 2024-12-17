@@ -50,6 +50,11 @@
             transform: scale(1.05);
         }
 
+        .answers button:nth-child(2) {
+            font-size: 0.65em;
+            padding: 7.5px 15px;
+        }
+
         .result {
             margin-top: 20px;
             font-size: 1.5em;
@@ -114,8 +119,6 @@
     </div>
     <div class="result" id="result"></div>
 
-    </footer>
-
     <script>
         function checkAnswer(isYes) {
             const resultDiv = document.getElementById("result");
@@ -139,10 +142,8 @@
 
             document.body.appendChild(heart);
 
-            // Entferne das Herz nach der Animation
             setTimeout(() => heart.remove(), 3000);
         }
     </script>
 </body>
 </html>
-
